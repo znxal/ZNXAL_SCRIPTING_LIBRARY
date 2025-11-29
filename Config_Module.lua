@@ -15,14 +15,13 @@ function Config:AwardBadge(player, badgeId)
 		if badgeInfo.IsEnabled then
 			local awarded, errorMessage = pcall(BadgeService.AwardBadge, BadgeService, player.UserId, badgeId)
 			if awarded then
-				print(player..": Badge diberikan! :"..awarded)
+				print(player.Name..": Badge diberikan! :"..tostring(awarded))
 			else
-				
-				warn(player..": Kesalahan saat memberikan Badge! :", errorMessage)
+				warn(player.Name..": Kesalahan saat memberikan Badge! :", errorMessage)
 			end
 		end
 	else
-		warn(player..": Kesalahan saat mengambil informasi Badge!: "..badgeInfo)
+		warn(player.Name..": Kesalahan saat mengambil informasi Badge!: "..tostring(badgeInfo))
 	end
 end
 
@@ -36,9 +35,9 @@ function Config:PromptPurchase(player: Player, UGCId: number) -- UGC/Items bukan
 	end)
 
 	if success then
-		print(player..": Sukses mengclaim Product! :"..success)
+		print(player.Name..": Sukses mengclaim Product! :"..tostring(success))
 	else
-		warn(player..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
+		warn(player.Name..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
 	end
 end
 
@@ -52,9 +51,9 @@ function Config:PromptProductPurchase(player: Player, DevProductId: number) -- D
 	end)
 
 	if success then
-		print(player..": Sukses membeli DevProduct! :"..success)
+		print(player.Name..": Sukses membeli DevProduct! :"..tostring(success))
 	else
-		warn(player..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
+		warn(player.Name..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
 	end
 end
 
@@ -68,9 +67,9 @@ function Config:PromptGamePassPurchase(player: Player, GamePassId: number) -- UG
 	end)
 
 	if success then
-		print(player..": Sukses membeli GamePass! :"..success)
+		print(player.Name..": Sukses membeli GamePass! :"..tostring(success))
 	else
-		warn(player..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
+		warn(player.Name..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
 	end
 end
 
@@ -85,13 +84,13 @@ function Config:CheckGamePass(player: Player, GamePassId: number)
 	end)
 
 	if success and ownsPass then
-		print(player.Name..": memiliki GamePass! :"..ownsPass)
+		print(player.Name..": memiliki GamePass! :"..tostring(ownsPass))
 		return true
 	elseif success and not ownsPass then
-		print(player.Name..": tidak memiliki GamePass! :"..ownsPass)
+		print(player.Name..": tidak memiliki GamePass! :"..tostring(ownsPass))
 		return false
 	else
-		warn(player..": Terjadi kesalahan saat checking GamePass! :"..ownsPass)
+		warn(player.Name..": Terjadi kesalahan saat checking GamePass! :"..tostring(ownsPass))
 		return false
 	end
 end
