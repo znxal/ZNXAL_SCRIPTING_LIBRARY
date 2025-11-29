@@ -12,12 +12,15 @@ function Config:AwardBadge(player, badgeId)
 	if success then
 		if badgeInfo.IsEnabled then
 			local awarded, errorMessage = pcall(BadgeService.AwardBadge, BadgeService, player.UserId, badgeId)
-			if not awarded then
-				warn(player..": Kesalahan saat memberikan lencana! :", errorMessage)
+			if awarded then
+				print(player..": Badge diberikan! :"..awarded)
+			else
+				
+				warn(player..": Kesalahan saat memberikan Badge! :", errorMessage)
 			end
 		end
 	else
-		warn(player..": Kesalahan saat mengambil informasi lencana!: "..badgeInfo)
+		warn(player..": Kesalahan saat mengambil informasi Badge!: "..badgeInfo)
 	end
 end
 
