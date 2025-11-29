@@ -26,7 +26,7 @@ function Config:AwardBadge(player, badgeId)
 	end
 end
 
-function Config:PromptPurchase(player: Player, UGCId: number) -- UGC/Product bukan DevProduct
+function Config:PromptPurchase(player: Player, UGCId: number) -- UGC/Items bukan DevProduct
 	if not player or not UGCId then
 		warn("Player atau UGCId tidak valid!")
 	end
@@ -42,9 +42,9 @@ function Config:PromptPurchase(player: Player, UGCId: number) -- UGC/Product buk
 	end
 end
 
-function Config:PromptProductPurchase(player: Player, DevProductId: number) -- UGC/Product bukan DevProduct
+function Config:PromptProductPurchase(player: Player, DevProductId: number) -- DevProduct bukan UGC/Items
 	if not player or not DevProductId then
-		warn("Player atau UGCId tidak valid!")
+		warn("Player atau DevProductId tidak valid!")
 	end
 
 	local success, errorMsg = pcall(function()
@@ -60,7 +60,7 @@ end
 
 function Config:PromptGamePassPurchase(player: Player, GamePassId: number) -- UGC/Product bukan DevProduct
 	if not player or not GamePassId then
-		warn("Player atau UGCId tidak valid!")
+		warn("Player atau GamePassId tidak valid!")
 	end
 
 	local success, errorMsg = pcall(function()
@@ -68,25 +68,30 @@ function Config:PromptGamePassPurchase(player: Player, GamePassId: number) -- UG
 	end)
 
 	if success then
-		print(player..": Sukses membeli DevProduct! :"..success)
+		print(player..": Sukses membeli GamePass! :"..success)
 	else
 		warn(player..": Terjadi kesalahan saat memproses pembelian! :" .. errorMsg)
 	end
 end
 
 function Config:CheckGamePass(player: Player, GamePassId: number)
+	if not player or not GamePassId then
+		warn("Player atau GamePassId tidak valid!")
+		return false
+	end
+	
 	local success, ownsPass = pcall(function()
 		return MarketplaceService:UserOwnsGamePassAsync(player.UserId, GamePassId)
 	end)
 
 	if success and ownsPass then
-		print(player.Name..": memiliki game pass! :"..ownsPass)
+		print(player.Name..": memiliki GamePass! :"..ownsPass)
 		return true
 	elseif success and not ownsPass then
-		print(player.Name..": tidak memiliki game pass! :"..ownsPass)
+		print(player.Name..": tidak memiliki GamePass! :"..ownsPass)
 		return false
 	else
-		warn(player..": Terjadi kesalahan saat checking gamepass! :"..ownsPass)
+		warn(player..": Terjadi kesalahan saat checking GamePass! :"..ownsPass)
 		return false
 	end
 end
