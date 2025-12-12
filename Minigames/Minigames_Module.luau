@@ -3,7 +3,7 @@ local TapMiniGame = {}
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 
-TapMiniGame.GameDuration = 10          
+TapMiniGame.GameDuration = nil          
 TapMiniGame.RespawnDelay = 0.15        
 TapMiniGame.ButtonSize = UDim2.fromOffset(100, 100)
 TapMiniGame.SAFE_LEFT = 0.02   
@@ -11,7 +11,8 @@ TapMiniGame.SAFE_RIGHT = 0.90
 TapMiniGame.SAFE_TOP = 0.05    
 TapMiniGame.SAFE_BOTTOM = 0.82
 
-function TapMiniGame:Start(player, callback)
+function TapMiniGame:Start(player, duration, callback)
+	self.GameDuration = duration
 	local uiTemplate = script.Minigames:Clone()
 	uiTemplate.Parent = player.PlayerGui
 
@@ -55,6 +56,7 @@ function TapMiniGame:Start(player, callback)
 		running = false
 		uiTemplate:Destroy()
 		callback(clickCount)
+		self.GameDuration = nil
 	end)
 end
 
