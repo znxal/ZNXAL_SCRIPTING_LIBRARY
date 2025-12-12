@@ -34,7 +34,7 @@ Minigames_Remote.OnServerEvent:Connect(function(player)
 	IsOccupied = true
 	ProximityPrompt.Enabled = false
 
-	MiniGames:Start(player, function(clicks)
+	MiniGames:Start(player, 15, function(clicks)
 		print("RESULT:", clicks)
 
 		local hadiahMin = clicks * 5
